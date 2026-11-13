@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Patitas en casa</title>
+<style>
+:root{--bg:#f2f8ff;--fg:#1b2a4e;--card:#fff;--sun:#ffc531;--sunfg:#1b2a4e;--grass:#2f9e6e;--bad:#d4506a;--muted:#5a6a8c;--line:#d6e4f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a30;--fg:#eaf1ff;--card:#1c2745;--grass:#4cc794;--bad:#ff7d97;--muted:#a3b3d6;--line:#2e3c63;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121a30;--fg:#eaf1ff;--card:#1c2745;--grass:#4cc794;--bad:#ff7d97;--muted:#a3b3d6;--line:#2e3c63;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 "Avenir Next","Nunito","Segoe UI",system-ui,sans-serif}
+h1,h2,h3{line-height:1.15;margin:0 0 .5em;font-weight:800}
+h1{font-size:clamp(2.4rem,8vw,4.2rem)}h2{font-size:clamp(1.7rem,4.5vw,2.4rem)}h3{font-size:1.2rem}
+a{color:inherit}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.2rem;padding:.9rem 1.2rem;border-bottom:2px solid var(--line)}
+.logo{font-weight:800;font-size:1.25rem;text-decoration:none;margin-right:auto}
+nav{display:flex;flex-wrap:wrap;gap:.3rem}
+nav a{text-decoration:none;padding:.35rem .8rem;border-radius:99px;font-weight:600;font-size:.95rem}
+nav a:hover{background:var(--line)}nav a.on{background:var(--sun);color:var(--sunfg)}
+main{max-width:980px;margin:0 auto;padding:1.5rem 1.2rem 3rem}
+.view{display:none}.view.on{display:block}
+.hero{display:grid;gap:2rem;align-items:center;padding:1.5rem 0}
+@media(min-width:760px){.hero{grid-template-columns:1.3fr 1fr}}
+.hero p{max-width:52ch}
+.paw{aspect-ratio:1;max-width:320px;width:100%;margin:auto;border-radius:50%;background:var(--sun);display:grid;place-items:center;font-size:clamp(7rem,28vw,10rem);position:relative}
+.paw::after{content:"¡Guau! ¿Me adoptas?";position:absolute;right:-6%;top:6%;background:var(--card);color:var(--fg);border:2px solid var(--fg);border-radius:18px 18px 18px 4px;padding:.4rem .8rem;font-size:.95rem;font-weight:700;transform:rotate(5deg)}
+.btn{display:inline-block;border:0;cursor:pointer;background:var(--fg);color:var(--bg);font:inherit;font-weight:800;padding:.8rem 1.5rem;border-radius:99px;text-decoration:none}
+.btn.sun{background:var(--sun);color:var(--sunfg)}.btn.line{background:none;color:var(--fg);border:2px solid var(--fg)}
+.btn:focus-visible,input:focus-visible,nav a:focus-visible{outline:3px solid var(--grass);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}
+.steps{display:grid;gap:1rem;margin-top:2rem}
+@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+.box{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:1.2rem 1.4rem}
+fieldset.box{margin:0 0 1rem;min-width:0}
+legend{font-weight:800;padding:0 .4rem}
+label.opt{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem .6rem;border-radius:12px;cursor:pointer}
+label.opt:hover{background:var(--line)}
+input[type=radio]{accent-color:var(--grass);margin-top:.4rem;width:1.1rem;height:1.1rem;flex:none}
+#res{margin-top:1.5rem}
+.ok{border-color:var(--grass)}.no{border-color:var(--bad)}
+.verd{font-size:1.5rem;font-weight:800}
+.dogs{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));margin:1.2rem 0 2rem}
+.dog{padding:0;overflow:hidden}
+.dog .pic{font-size:4.5rem;text-align:center;padding:1rem 0 .6rem}
+.dog .in{padding:0 1.2rem 1.2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .7rem}
+.tags span{background:var(--line);border-radius:99px;padding:.1rem .7rem;font-size:.88rem;font-weight:600}
+.two{display:grid;gap:1rem}@media(min-width:760px){.two{grid-template-columns:1fr 1fr}}
+li{margin:.4rem 0}ul,ol{padding-left:1.3rem}
+.recs{columns:1}@media(min-width:760px){.recs{columns:2;column-gap:2rem}.recs li{break-inside:avoid}}
+.map{width:100%;height:min(60vh,460px);border:2px solid var(--line);border-radius:22px;background:var(--card)}
+.muted{color:var(--muted);font-size:.95rem}
+.dog .pic.has{padding:0}.dog .pic img{display:block;width:100%;height:210px;object-fit:cover}
+.fld{display:grid;gap:.8rem;margin:.8rem 0}@media(min-width:640px){.fld{grid-template-columns:1fr 1fr}}
+.fld label{display:grid;gap:.25rem;font-weight:700}
+input[type=text],select{width:100%;font:inherit;font-weight:400;padding:.55rem .8rem;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--fg)}
+.arow{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between;border-top:2px solid var(--line);padding:.6rem 0}.arow:first-child{border-top:0}
+.btn.sm{padding:.3rem .9rem;font-size:.9rem}
+footer{text-align:center;padding:1.5rem 1rem;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#inicio">🐾 Patitas en casa</a>
+  <nav id="nav"></nav>
+</header>
+<main>
+
+<section class="view" id="v-inicio">
+  <div class="hero">
+    <div>
+      <h1>Patitas en casa</h1>
+      <p><b>Te damos la bienvenida.</b> Aquí, perritos que buscan familia se encuentran con personas que quieren darles un hogar para toda la vida.</p>
+      <p>Contesta un cuestionario de 12 preguntas sobre tu tiempo, tu casa y tus hábitos. Con tus respuestas sabrás si eres candidato o candidata para adoptar y qué paso sigue.</p>
+      <div class="row"><a class="btn sun" href="#cuestionario">Hacer el cuestionario</a><a class="btn line" href="#perritos">Ver perritos</a></div>
+    </div>
+    <div class="paw" aria-hidden="true">🐶</div>
+  </div>
+  <div class="steps">
+    <div class="box"><h3>1. Contesta</h3><p>12 preguntas rápidas, sin registro.</p></div>
+    <div class="box"><h3>2. Conoce</h3><p>Si eres candidato, elige al perrito que va contigo.</p></div>
+    <div class="box"><h3>3. Adopta</h3><p>Escríbenos, cumple los requisitos y llévalo a casa.</p></div>
+  </div>
+</section>
+
+<section class="view" id="v-cuestionario">
+  <h2>¿Estás listo para adoptar?</h2>
+  <p>Responde con sinceridad: no hay respuestas “buenas”, solo la que le conviene al perrito y a ti.</p>
+  <div id="qs"></div>
+  <button class="btn sun" id="send">Ver mi resultado</button>
+  <p class="muted" id="err" role="alert"></p>
+  <div id="res" class="box" hidden></div>
+</section>
+
+<section class="view" id="v-perritos">
+  <h2>Perritos en adopción</h2>
+  <p class="muted">Estos perritos son de ejemplo: cambia sus datos en la lista <code>DOGS</code> del código.</p>
+  <div class="dogs" id="dogs"></div>
+  <div class="two">
+    <div class="box"><h3>Pasos para solicitar la adopción</h3>
+      <ol><li>Contesta el cuestionario y obtén tu resultado.</li><li>Elige al perrito y escríbenos con el botón de su tarjeta.</li><li>Agenda una visita para conocerlo y convivir con él.</li><li>Entrevista y revisión de documentos.</li><li>Firma del compromiso de adopción.</li><li>Llévalo a casa y mándanos noticias de su adaptación.</li></ol></div>
+    <div class="box"><h3>Requisitos para adoptar</h3>
+      <ul><li>Ser mayor de edad y presentar identificación oficial.</li><li>Comprobante de domicilio.</li><li>Permiso del arrendador si rentas.</li><li>Todos en casa están de acuerdo con la adopción.</li><li>Compromiso de cuidarlo toda su vida (10 a 15 años o más).</li><li>Vacunas, desparasitación y esterilización.</li><li>Espacio seguro, comida, agua y paseos diarios.</li><li>Nunca abandonarlo ni regalarlo: si no puedes cuidarlo, nos lo devuelves.</li></ul></div>
+  </div>
+  <p class="muted">Contacto para solicitudes: <a href="mailto:contacto@patitasencasa.mx">contacto@patitasencasa.mx</a> (correo de ejemplo, cámbialo por el real).</p>
+</section>
+
+<section class="view" id="v-recomendaciones">
+  <h2>Cuando llegue tu nuevo amigo</h2>
+  <p>Los primeros días son clave. Ten paciencia: él también está aprendiendo su nueva casa.</p>
+  <div class="box"><ul class="recs">
+    <li>Prepara antes su cama, su plato de agua, su comida y sus juguetes.</li>
+    <li>Quita de su alcance cables, plantas tóxicas, químicos y objetos pequeños.</li>
+    <li>Llévalo al veterinario en la primera semana para revisión y calendario de vacunas.</li>
+    <li>Mantén su comida de siempre unos días y cambia la dieta poco a poco.</li>
+    <li>Dale un rincón tranquilo para descansar y no lo fuerces a convivir.</li>
+    <li>Fija horarios para comer, pasear y dormir.</li>
+    <li>Saca a pasear a tu perro a diario, con correa y placa con tus datos.</li>
+    <li>Enséñale con premios y paciencia; nunca con gritos ni golpes.</li>
+    <li>Presenta a otras mascotas poco a poco y con supervisión.</li>
+    <li>Cuida su higiene: baño según su pelaje, cepillado, uñas y dientes.</li>
+    <li>Esteriliza y desparasita; en calor, ten agua fresca y sombra.</li>
+    <li>Considera ponerle microchip y nunca lo dejes solo mucho tiempo.</li>
+  </ul></div>
+</section>
+
+<section class="view" id="v-mapa">
+  <h2>Perreras y refugios cerca de ti</h2>
+  <p>Permite el acceso a tu ubicación para buscar a tu alrededor.</p>
+  <div class="row"><button class="btn sun" id="loc">Usar mi ubicación</button><a class="btn line" id="gm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/perreras+cerca+de+mi">Abrir en Google Maps</a></div>
+  <p class="muted" id="mapmsg"></p>
+  <iframe class="map" id="map" title="Mapa de perreras cercanas" loading="lazy" src="https://maps.google.com/maps?q=perreras+cerca+de+mi&amp;output=embed"></iframe>
+</section>
+
+<section class="view" id="v-nosotros">
+  <h2>Quiénes somos</h2>
+  <div class="box">
+    <p>Somos <b>Leslie Gonzalez, Jimena Negroe, Renata Puerto, Nicole Aranda y Emilio Zapata</b>, un grupo de estudiantes a quienes nos gusta cuidar de los animalitos que sueñan con una familia.</p>
+    <p>Creamos Patitas en casa para ayudar a que haya menos perros en las calles y para que cada adopción sea responsable y para siempre.</p>
+  </div>
+  <div class="row"><a class="btn sun" href="#cuestionario">Hacer el cuestionario</a></div>
+</section>
+
+<section class="view" id="v-admin">
+  <h2>Administración de perritos</h2>
+  <div class="box" id="login">Comprobando tu sesión…</div>
+  <div id="panel" hidden>
+    <div class="box" style="margin:1rem 0">
+      <h3 id="f-title">Agregar perrito</h3>
+      <div class="fld">
+        <label>Nombre<input type="text" id="f-name"></label>
+        <label>Sexo<select id="f-sexo"><option>Hembra</option><option>Macho</option></select></label>
+        <label>Edad<input type="text" id="f-edad" placeholder="2 años"></label>
+        <label>Peso<input type="text" id="f-peso" placeholder="12 kg"></label>
+        <label>Raza o descripción<input type="text" id="f-raza"></label>
+        <label>Qué le gusta<input type="text" id="f-gustos"></label>
+        <label>Foto (déjala vacía para conservar la actual)<input type="file" id="f-photo" accept="image/*"></label>
+      </div>
+      <div class="row"><button class="btn sun" id="f-save">Guardar perrito</button><button class="btn line" id="f-cancel">Cancelar</button></div>
+      <p class="muted" id="f-msg" role="status"></p>
+    </div>
+    <div class="box"><h3>Perritos publicados</h3><div id="alist"></div></div>
+  </div>
+</section>
+
+</main>
+<footer>🐾 Patitas en casa · Proyecto estudiantil</footer>
+
+<script>
+// Clave gratuita de Google AI Studio (https://aistudio.google.com/apikey). Vacía = resultado local.
+const GEMINI_API_KEY = "";
+const GEMINI_MODEL = "gemini-2.5-flash";
+
+const VIEWS = [["inicio","Inicio"],["cuestionario","Cuestionario"],["perritos","Perritos"],["recomendaciones","Recomendaciones"],["mapa","Mapa"],["nosotros","Quiénes somos"],["admin","Admin"]];
+const Q = [
+ ["¿En qué tipo de vivienda vives?",[["Casa con patio o jardín",2],["Casa sin patio",2],["Departamento amplio",1],["Departamento pequeño",0]]],
+ ["¿La vivienda es tuya o rentada?",[["Es propia",2],["Rento y permiten mascotas",2],["Rento y no he preguntado",1],["Rento y no permiten mascotas",0]]],
+ ["¿Cuántas horas al día estaría solo el perrito?",[["Menos de 4 horas",2],["De 4 a 8 horas",2],["De 8 a 10 horas",1],["Más de 10 horas",0]]],
+ ["¿Cuánto tiempo al día puedes darle para pasear y jugar?",[["Más de 1 hora",2],["30 a 60 minutos",2],["Menos de 30 minutos",1],["Casi nada",0]]],
+ ["¿Tienes otras mascotas?",[["No tengo",2],["Sí, y conviven bien con perros",2],["Sí, pero no sé cómo reaccionarían",1],["Sí, y suelen pelear con otros animales",0]]],
+ ["¿Las personas con quienes vives están de acuerdo?",[["Todas están de acuerdo",2],["La mayoría",1],["Lo decidí yo solo",1],["Alguien se opone",0]]],
+ ["¿Hay niños pequeños o adultos mayores en casa?",[["No",2],["Sí, y siempre habrá supervisión",2],["Sí, y a veces estarán sin supervisión",0]]],
+ ["¿Tienes experiencia cuidando perros?",[["Mucha",2],["Algo",2],["Ninguna, pero quiero aprender",1],["Ninguna y no tengo tiempo de aprender",0]]],
+ ["¿Puedes pagar comida, vacunas y veterinario cada mes?",[["Sí, sin problema",2],["Sí, con presupuesto ajustado",2],["No estoy seguro",1],["No podría pagarlo",0]]],
+ ["¿Aceptas vacunarlo, desparasitarlo y esterilizarlo?",[["Sí, por completo",2],["Sí, si me orientan",2],["Todavía no lo sé",1],["No",0]]],
+ ["Si viajas o te mudas, ¿qué pasa con el perrito?",[["Se viene conmigo o lo cuida alguien de confianza",2],["Lo organizaría con tiempo",1],["No lo he pensado",1],["Lo dejaría o regalaría",0]]],
+ ["Un perro vive entre 10 y 15 años. ¿Te comprometes todo ese tiempo?",[["Sí, totalmente",2],["Creo que sí",1],["No estoy seguro",0],["Solo por una temporada",0]]]
+];
+const CRIT = [1,5,8,11];
+const PROMPT = "Eres una asesora de un refugio de perros llamada Patitas en casa. Evalúa si la persona es candidata responsable para adoptar un perro según sus respuestas a este cuestionario. Sé amable, honesta y breve. Responde en español. La PRIMERA línea debe ser exactamente 'VEREDICTO: APTO' o 'VEREDICTO: NO APTO'. Después escribe 3 o 4 líneas con el motivo y 2 consejos concretos. Cuestionario y respuestas:\n";
+
+const $ = s => document.querySelector(s);
+
+// Navegación por hash
+$("#nav").innerHTML = VIEWS.map(v => `<a href="#${v[0]}" data-v="${v[0]}">${v[1]}</a>`).join("");
+function route(){
+  let h = location.hash.slice(1);
+  if(!VIEWS.some(v => v[0] === h)) h = "inicio";
+  document.querySelectorAll(".view").forEach(e => e.classList.toggle("on", e.id === "v-" + h));
+  document.querySelectorAll("nav a").forEach(a => a.classList.toggle("on", a.dataset.v === h));
+  window.scrollTo(0,0);
+}
+addEventListener("hashchange", route); route();
+
+// Cuestionario
+$("#qs").innerHTML = Q.map((q,i) => `<fieldset class="box"><legend>${i+1}. ${q[0]}</legend>` +
+  q[1].map((o,j) => `<label class="opt"><input type="radio" name="q${i}" value="${j}"><span>${o[0]}</span></label>`).join("") + `</fieldset>`).join("");
+
+function local(a){
+  const pts = a.reduce((s,j,i) => s + Q[i][1][j][1], 0);
+  const crit = CRIT.some(i => Q[i][1][a[i]][1] === 0);
+  const apto = pts >= 16 && !crit;
+  return apto
+    ? `VEREDICTO: APTO\nObtuviste ${pts} de 24 puntos. Tienes tiempo, espacio y compromiso para recibir a un perrito.\nConsejo: visita a los perritos y elige uno cuyo nivel de energía vaya con tu rutina.\nConsejo: agenda su visita al veterinario desde la primera semana.`
+    : `VEREDICTO: NO APTO\nObtuviste ${pts} de 24 puntos${crit ? " y alguna respuesta clave indica que todavía no es el momento" : ""}.\nConsejo: revisa tiempo, presupuesto y acuerdo familiar antes de adoptar.\nConsejo: mientras tanto puedes apoyar como voluntario o difundiendo perritos en adopción.`;
+}
+
+$("#send").onclick = async () => {
+  const a = Q.map((q,i) => { const r = document.querySelector(`input[name=q${i}]:checked`); return r ? +r.value : -1; });
+  const miss = a.indexOf(-1);
+  if(miss > -1){ $("#err").textContent = `Falta responder la pregunta ${miss+1}.`; return; }
+  $("#err").textContent = "";
+  const box = $("#res"); box.hidden = false; box.className = "box"; box.textContent = "Analizando tus respuestas…";
+  const prompt = PROMPT + Q.map((q,i) => `${i+1}. ${q[0]} → ${q[1][a[i]][0]}`).join("\n");
+  let text, via = "Gemini";
+  try{
+    if(!GEMINI_API_KEY) throw 0;
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
+      {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+    text = (await r.json()).candidates[0].content.parts[0].text;
+  }catch(e){ text = local(a); via = "cálculo local"; }
+  const apto = /VEREDICTO:\s*APTO/i.test(text);
+  const body = text.replace(/^.*VEREDICTO:.*\n?/i, "").trim();
+  box.className = "box " + (apto ? "ok" : "no");
+  box.innerHTML = `<div class="verd">${apto ? "🎉 ¡Eres candidato para adoptar!" : "🐾 Todavía no es el momento"}</div><p id="body" style="white-space:pre-line"></p>` +
+    `<div class="row">${apto ? '<a class="btn sun" href="#perritos">Conocer a los perritos</a>' : '<a class="btn sun" href="#recomendaciones">Ver recomendaciones</a><a class="btn line" href="#cuestionario" onclick="location.reload()">Intentar de nuevo</a>'}</div><p class="muted">Resultado por: ${via}</p>`;
+  $("#body").textContent = body;
+  box.scrollIntoView({behavior:"smooth",block:"center"});
+};
+
+// Perritos de ejemplo
+const DOGS = [
+ ["🐕","Canela","Hembra","2 años","12 kg","Mestiza dulce","Correr tras la pelota y dormir en tus pies"],
+ ["🐶","Max","Macho","4 años","25 kg","Labrador mestizo","Nadar, pasear y recibir caricias"],
+ ["🐩","Luna","Hembra","6 meses","5 kg","Cachorra","Morder juguetes y jugar con niños"],
+ ["🦮","Rocky","Macho","7 años","18 kg","Mestizo tranquilo","Siestas largas y paseos suaves"],
+ ["🐕‍🦺","Mora","Hembra","1 año","9 kg","Mestiza juguetona","Aprender trucos por premios"],
+ ["🐾","Toby","Macho","3 años","15 kg","Mestizo cariñoso","Compañía y paseos por el parque"]
+];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let DB = null, ASSETS = null, isAdmin = false, editing = null;
+let dogs = DOGS.map((d,i) => ({id:"d"+i,emoji:d[0],name:d[1],sexo:d[2],edad:d[3],peso:d[4],raza:d[5],gustos:d[6],photo:"",order:i}));
+function drawDogs(){
+  $("#dogs").innerHTML = dogs.map(d => `<article class="box dog"><div class="pic${d.photo ? " has" : ""}">${d.photo ? `<img src="/_blob/${esc(d.photo)}" alt="Foto de ${esc(d.name)}" loading="lazy">` : esc(d.emoji || "🐶")}</div><div class="in"><h3>${esc(d.name)}</h3>
+  <div class="tags"><span>${esc(d.sexo)}</span><span>${esc(d.edad)}</span><span>${esc(d.peso)}</span></div>
+  <p><b>${esc(d.raza)}.</b> Le gusta: ${esc(d.gustos)}.</p>
+  <a class="btn sun" href="mailto:contacto@patitasencasa.mx?subject=${encodeURIComponent("Quiero adoptar a " + d.name)}">Solicitar adopción</a></div></article>`).join("") || "<p>Pronto habrá perritos nuevos en adopción.</p>";
+  drawAdminList();
+}
+function drawAdminList(){
+  if(!isAdmin) return;
+  $("#alist").innerHTML = dogs.map(d => `<div class="arow"><span>${esc(d.emoji || "🐶")} <b>${esc(d.name)}</b> · ${esc(d.edad)}${d.photo ? " · con foto" : ""}</span><span><button class="btn line sm" data-a="edit" data-id="${esc(d.id)}">Editar</button> <button class="btn line sm" data-a="del" data-id="${esc(d.id)}">Eliminar</button></span></div>`).join("") || "<p class='muted'>Aún no hay perritos publicados.</p>";
+}
+drawDogs();
+
+// Mapa
+$("#loc").onclick = () => {
+  const m = $("#mapmsg");
+  if(!navigator.geolocation){ m.textContent = "Tu navegador no permite ubicación. Usa el botón de Google Maps."; return; }
+  m.textContent = "Buscando tu ubicación…";
+  navigator.geolocation.getCurrentPosition(p => {
+    const q = `perreras ${p.coords.latitude},${p.coords.longitude}`;
+    $("#map").src = `https://maps.google.com/maps?q=${encodeURIComponent(q)}&output=embed`;
+    $("#gm").href = `https://www.google.com/maps/search/${encodeURIComponent(q)}`;
+    m.textContent = "Mostrando perreras cerca de ti.";
+  }, () => { m.textContent = "No pudimos obtener tu ubicación. Abre Google Maps con el botón de arriba."; });
+};
+
+// Administración: la sesión de Claude decide quién es administrador (Editor o dueño de la página)
+const fmsg = t => { $("#f-msg").textContent = t; };
+function shrink(file){
+  return new Promise(ok => {
+    const im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, 900 / Math.max(im.width, im.height)), c = document.createElement("canvas");
+      c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+      c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+      c.toBlob(b => ok(b || file), "image/jpeg", .85);
+    };
+    im.onerror = () => ok(file);
+    im.src = URL.createObjectURL(file);
+  });
+}
+function resetForm(){
+  editing = null; $("#f-title").textContent = "Agregar perrito";
+  ["name","edad","peso","raza","gustos"].forEach(k => $("#f-" + k).value = "");
+  $("#f-sexo").value = "Hembra"; $("#f-photo").value = "";
+}
+$("#f-cancel").onclick = () => { resetForm(); fmsg(""); };
+$("#f-save").onclick = async () => {
+  const g = k => $("#f-" + k).value.trim();
+  if(!g("name")){ fmsg("Escribe el nombre del perrito."); return; }
+  if(!DB){ fmsg("La base de datos no está disponible. Abre la página con tu cuenta de Claude."); return; }
+  fmsg("Guardando…");
+  try{
+    let photo = editing ? editing.photo || "" : "";
+    const file = $("#f-photo").files[0];
+    if(file){
+      if(!ASSETS) throw {message:"no se pueden subir fotos con esta cuenta"};
+      photo = (await ASSETS.upload(await shrink(file))).id;
+    }
+    const id = editing ? editing.id : "d" + Date.now();
+    await DB.collection("dogs").doc(id).set({emoji: editing ? editing.emoji || "🐶" : "🐶", name:g("name"), sexo:$("#f-sexo").value, edad:g("edad"), peso:g("peso"), raza:g("raza"), gustos:g("gustos"), photo, order: editing ? editing.order : Date.now()});
+    resetForm(); fmsg("Guardado. Ya aparece en la sección Perritos.");
+  }catch(e){ fmsg("No se pudo guardar: " + (e.message || e.code || "error desconocido")); }
+};
+$("#alist").onclick = async e => {
+  const b = e.target.closest("button"); if(!b) return;
+  const d = dogs.find(x => x.id === b.dataset.id); if(!d) return;
+  if(b.dataset.a === "edit"){
+    editing = d; $("#f-title").textContent = "Editar a " + d.name;
+    ["name","edad","peso","raza","gustos"].forEach(k => $("#f-" + k).value = d[k] || "");
+    $("#f-sexo").value = d.sexo || "Hembra"; $("#f-photo").value = "";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }else if(b.dataset.c !== "1"){
+    b.dataset.c = "1"; b.textContent = "¿Seguro? Toca otra vez";
+  }else{
+    try{ await DB.collection("dogs").doc(d.id).delete(); }catch(x){ fmsg("No se pudo eliminar."); }
+  }
+};
+(async () => {
+  const L = $("#login"); let user = null;
+  if(typeof claude === "undefined" || !claude.use){ L.textContent = "Abre esta página desde claude.ai con tu cuenta para iniciar sesión como administrador."; return; }
+  try{
+    user = await claude.use("user");
+    DB = await claude.use("db");
+    isAdmin = user ? await user.canEdit() : false;
+    if(isAdmin) ASSETS = await claude.use("assets");
+    if(DB) DB.collection("dogs").orderBy("order").onSnapshot(s => { dogs = s.docs.map(x => ({id:x.id, ...x.data()})); drawDogs(); }, () => {});
+  }catch(e){}
+  if(isAdmin){ L.textContent = "✅ Sesión de administrador activa. Puedes agregar, editar y quitar perritos y subir sus fotos."; $("#panel").hidden = false; drawAdminList(); }
+  else L.textContent = user ? "Tu sesión está iniciada, pero esta cuenta no es de administrador. Pide al dueño de la página que te agregue como Editor." : "Inicia sesión en Claude y abre esta página con tu cuenta para administrar los perritos.";
+})();
+</script>
+</body>
+</html>
