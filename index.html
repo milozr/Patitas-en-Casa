@@ -268,10 +268,13 @@ const DOGS = [
  ["🐾","Toby","Macho","3 años","15 kg","Mestizo cariñoso","Compañía y paseos por el parque"]
 ];
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const FOTOS = {Canela:"canela.jpg",Max:"max.jpg",Luna:"luna.jpg",Rocky:"rocky.jpg",Mora:"mora.jpg",Toby:"toby.jpg"};
 let DB = null, ASSETS = null, isAdmin = false, editing = null;
-let dogs = DOGS.map((d,i) => ({id:"d"+i,emoji:d[0],name:d[1],sexo:d[2],edad:d[3],peso:d[4],raza:d[5],gustos:d[6],photo:"",order:i}));
+let dogs = DOGS.map((d,i) => ({id:"d"+i,emoji:d[0],name:d[1],sexo:d[2],edad:d[3],peso:d[4],raza:d[5],gustos:d[6],photo:FOTOS[d[1]] || "",order:i}));
+const photoUrl = p => /[\/.]/.test(p) ? p : "/_blob/" + p;
+function noPic(img){ const p = img.parentNode; p.classList.remove("has"); p.textContent = img.dataset.e; }
 function drawDogs(){
-  $("#dogs").innerHTML = dogs.map(d => `<article class="box dog"><div class="pic${d.photo ? " has" : ""}">${d.photo ? `<img src="/_blob/${esc(d.photo)}" alt="Foto de ${esc(d.name)}" loading="lazy">` : esc(d.emoji || "🐶")}</div><div class="in"><h3>${esc(d.name)}</h3>
+  $("#dogs").innerHTML = dogs.map(d => `<article class="box dog"><div class="pic${d.photo ? " has" : ""}">${d.photo ? `<img src="${esc(photoUrl(d.photo))}" alt="Foto de ${esc(d.name)}" data-e="${esc(d.emoji || "🐶")}" onerror="noPic(this)" loading="lazy">` : esc(d.emoji || "🐶")}</div><div class="in"><h3>${esc(d.name)}</h3>
   <div class="tags"><span>${esc(d.sexo)}</span><span>${esc(d.edad)}</span><span>${esc(d.peso)}</span></div>
   <p><b>${esc(d.raza)}.</b> Le gusta: ${esc(d.gustos)}.</p>
   <a class="btn sun" href="mailto:contacto@patitasencasa.mx?subject=${encodeURIComponent("Quiero adoptar a " + d.name)}">Solicitar adopción</a></div></article>`).join("") || "<p>Pronto habrá perritos nuevos en adopción.</p>";
@@ -350,9 +353,10 @@ $("#alist").onclick = async e => {
 };
 function drawHero(id){
   const h = $("#hero");
-  if(id){ h.classList.add("has"); h.innerHTML = `<img src="/_blob/${esc(id)}" alt="">`; }
+  if(id){ h.classList.add("has"); h.innerHTML = `<img src="${esc(photoUrl(id))}" alt="" onerror="drawHero('')">`; }
   else{ h.classList.remove("has"); h.textContent = "🐶"; }
 }
+drawHero("inicio.jpg");
 const hmsg = t => { $("#h-msg").textContent = t; };
 $("#h-save").onclick = async () => {
   const f = $("#h-photo").files[0];
