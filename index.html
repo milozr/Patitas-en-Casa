@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Patitas en casa</title>
 <style>
-:root{--bg:#f2f8ff;--fg:#1b2a4e;--card:#fff;--sun:#ffc531;--sunfg:#1b2a4e;--grass:#2f9e6e;--bad:#d4506a;--muted:#5a6a8c;--line:#d6e4f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+:root{--bg:#f1f6ff;--fg:#1b2a4e;--card:#fff;--sun:#ffc531;--sunfg:#1b2a4e;--grass:#2f9e6e;--bad:#d4506a;--muted:#5a6a8c;--line:#d6e4f5;--coral:#ff6b6b;--sky:#2f9bff;--grape:#6d3fe0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a30;--fg:#eaf1ff;--card:#1c2745;--grass:#4cc794;--bad:#ff7d97;--muted:#a3b3d6;--line:#2e3c63;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#121a30;--fg:#eaf1ff;--card:#1c2745;--grass:#4cc794;--bad:#ff7d97;--muted:#a3b3d6;--line:#2e3c63;color-scheme:dark}
 *{box-sizing:border-box}
@@ -59,6 +59,18 @@ input[type=text],select{width:100%;font:inherit;font-weight:400;padding:.55rem .
 .arow{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between;border-top:2px solid var(--line);padding:.6rem 0}.arow:first-child{border-top:0}
 .btn.sm{padding:.3rem .9rem;font-size:.9rem}
 footer{text-align:center;padding:1.5rem 1rem;color:var(--muted);font-size:.9rem}
+header{background:var(--sun);color:var(--sunfg);border-bottom:0;box-shadow:0 6px 0 var(--coral)}
+header nav a:hover{background:rgba(255,255,255,.55)}header nav a.on{background:var(--sunfg);color:#fff}
+h2::after{content:"";display:block;width:84px;height:6px;border-radius:9px;margin-top:.45rem;background:linear-gradient(90deg,var(--coral),var(--sun),var(--sky),var(--grape))}
+.paw{background:linear-gradient(140deg,var(--coral),var(--sun) 60%,var(--sky))}.paw.has{background:none}
+.paw img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%;border:6px solid var(--sun);box-shadow:0 10px 0 var(--coral)}
+.steps .box:nth-child(1){border-top:8px solid var(--sky)}.steps .box:nth-child(2){border-top:8px solid var(--grass)}.steps .box:nth-child(3){border-top:8px solid var(--grape)}
+.two .box:nth-child(1){border-top:8px solid var(--coral)}.two .box:nth-child(2){border-top:8px solid var(--grape)}
+fieldset.box{border-left:8px solid var(--sky)}fieldset.box:nth-of-type(4n+2){border-left-color:var(--coral)}fieldset.box:nth-of-type(4n+3){border-left-color:var(--grass)}fieldset.box:nth-of-type(4n){border-left-color:var(--grape)}
+.dog:nth-child(6n+1) .pic{background:#ffd9a8}.dog:nth-child(6n+2) .pic{background:#bfe3ff}.dog:nth-child(6n+3) .pic{background:#ffc9d6}.dog:nth-child(6n+4) .pic{background:#c9f2d9}.dog:nth-child(6n+5) .pic{background:#e0d4ff}.dog:nth-child(6n) .pic{background:#fff0a6}
+.dog .pic.has{background:none}
+.tags span{color:#1b2a4e;background:#ffe08a}.tags span:nth-child(2){background:#bfe3ff}.tags span:nth-child(3){background:#ffc9d6}
+footer{background:var(--grape);color:#fff}
 </style>
 </head>
 <body>
@@ -76,7 +88,7 @@ footer{text-align:center;padding:1.5rem 1rem;color:var(--muted);font-size:.9rem}
       <p>Contesta un cuestionario de 12 preguntas sobre tu tiempo, tu casa y tus hábitos. Con tus respuestas sabrás si eres candidato o candidata para adoptar y qué paso sigue.</p>
       <div class="row"><a class="btn sun" href="#cuestionario">Hacer el cuestionario</a><a class="btn line" href="#perritos">Ver perritos</a></div>
     </div>
-    <div class="paw" aria-hidden="true">🐶</div>
+    <div class="paw" id="hero" role="img" aria-label="Perrito de Patitas en casa">🐶</div>
   </div>
   <div class="steps">
     <div class="box"><h3>1. Contesta</h3><p>12 preguntas rápidas, sin registro.</p></div>
@@ -104,7 +116,7 @@ footer{text-align:center;padding:1.5rem 1rem;color:var(--muted);font-size:.9rem}
     <div class="box"><h3>Requisitos para adoptar</h3>
       <ul><li>Ser mayor de edad y presentar identificación oficial.</li><li>Comprobante de domicilio.</li><li>Permiso del arrendador si rentas.</li><li>Todos en casa están de acuerdo con la adopción.</li><li>Compromiso de cuidarlo toda su vida (10 a 15 años o más).</li><li>Vacunas, desparasitación y esterilización.</li><li>Espacio seguro, comida, agua y paseos diarios.</li><li>Nunca abandonarlo ni regalarlo: si no puedes cuidarlo, nos lo devuelves.</li></ul></div>
   </div>
-  <p class="muted">Contacto para solicitudes: <a href="mailto:contacto@patitasencasa.mx">contacto@patitasencasa.mx</a> (correo de ejemplo, cámbialo por el real).</p>
+  <p class="muted">Contacto para solicitudes: <a href="mailto:contacto@patitasencasa.mx">contacto@patitasencasa.mx</a></p>
 </section>
 
 <section class="view" id="v-recomendaciones">
@@ -147,6 +159,12 @@ footer{text-align:center;padding:1.5rem 1rem;color:var(--muted);font-size:.9rem}
   <h2>Administración de perritos</h2>
   <div class="box" id="login">Comprobando tu sesión…</div>
   <div id="panel" hidden>
+    <div class="box" style="margin:1rem 0">
+      <h3>Foto de la página de inicio</h3>
+      <div class="fld"><label>Elige una foto<input type="file" id="h-photo" accept="image/*"></label></div>
+      <div class="row"><button class="btn sun" id="h-save">Guardar foto de inicio</button><button class="btn line" id="h-clear">Quitar foto</button></div>
+      <p class="muted" id="h-msg" role="status"></p>
+    </div>
     <div class="box" style="margin:1rem 0">
       <h3 id="f-title">Agregar perrito</h3>
       <div class="fld">
@@ -330,6 +348,27 @@ $("#alist").onclick = async e => {
     try{ await DB.collection("dogs").doc(d.id).delete(); }catch(x){ fmsg("No se pudo eliminar."); }
   }
 };
+function drawHero(id){
+  const h = $("#hero");
+  if(id){ h.classList.add("has"); h.innerHTML = `<img src="/_blob/${esc(id)}" alt="">`; }
+  else{ h.classList.remove("has"); h.textContent = "🐶"; }
+}
+const hmsg = t => { $("#h-msg").textContent = t; };
+$("#h-save").onclick = async () => {
+  const f = $("#h-photo").files[0];
+  if(!f){ hmsg("Elige una foto primero."); return; }
+  if(!DB || !ASSETS){ hmsg("Esta cuenta no puede subir fotos."); return; }
+  hmsg("Subiendo…");
+  try{
+    const id = (await ASSETS.upload(await shrink(f))).id;
+    await DB.doc("site/hero").set({photo:id});
+    $("#h-photo").value = ""; hmsg("Listo: la foto ya se ve en Inicio.");
+  }catch(e){ hmsg("No se pudo guardar: " + (e.message || e.code || "error desconocido")); }
+};
+$("#h-clear").onclick = async () => {
+  if(!DB) return;
+  try{ await DB.doc("site/hero").set({photo:""}); hmsg("Foto quitada."); }catch(e){ hmsg("No se pudo quitar la foto."); }
+};
 (async () => {
   const L = $("#login"); let user = null;
   if(typeof claude === "undefined" || !claude.use){ L.textContent = "Abre esta página desde claude.ai con tu cuenta para iniciar sesión como administrador."; return; }
@@ -338,6 +377,7 @@ $("#alist").onclick = async e => {
     DB = await claude.use("db");
     isAdmin = user ? await user.canEdit() : false;
     if(isAdmin) ASSETS = await claude.use("assets");
+    if(DB) DB.doc("site/hero").onSnapshot(s => drawHero(s.exists ? s.data().photo : ""), () => {});
     if(DB) DB.collection("dogs").orderBy("order").onSnapshot(s => { dogs = s.docs.map(x => ({id:x.id, ...x.data()})); drawDogs(); }, () => {});
   }catch(e){}
   if(isAdmin){ L.textContent = "✅ Sesión de administrador activa. Puedes agregar, editar y quitar perritos y subir sus fotos."; $("#panel").hidden = false; drawAdminList(); }
